@@ -1,4 +1,4 @@
-import 'package:aula_tres/telaDois.dart';
+import 'package:aula_tres/tela_dois.dart';
 import 'package:flutter/material.dart';
 
 // Função principal que inicia o aplicativo Flutter
@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       // Define a cor tema baseada na cor vermelha
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.red)),
       // Define a tela inicial que será carregada
-      //home: const MyHomePage(title: 'Pedra, Papel, Tesoura'),
-      home: const TelaDois(title: 'Pedra, Papel, Tesoura'),
+      home: const MyHomePage(title: 'Pedra, Papel, Tesoura'),
+      //home: const TelaDois(title: 'Pedra, Papel, Tesoura'),
       // Remove a faixa de "Debug" no canto da tela
       debugShowCheckedModeBanner: false,
     );
@@ -82,9 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // Chama a função _buildOpcao para construir os botões clicáveis
-              _buildOpcao('assets/images/pedra.png'),
-              _buildOpcao('assets/images/papel.png'),
-              _buildOpcao('assets/images/tesoura.png'),
+              _buildOpcao('assets/images/pedra.png', 0),
+              _buildOpcao('assets/images/papel.png', 1),
+              _buildOpcao('assets/images/tesoura.png', 2),
             ],
           ),
         ],
@@ -93,11 +93,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // Função auxiliar que cria o botão visual para cada opção (Pedra, Papel, Tesoura)
-  Widget _buildOpcao(String imagePath) {
+  Widget _buildOpcao(String imagePath, int escolhaJogador) {
     // GestureDetector permite detectar cliques (toques) no container
     return GestureDetector(
       onTap: () {
-        // TODO: Logica aqui
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TelaDois(title: widget.title, escolhaJogador: escolhaJogador)),// passar variavel com a escolha do jogador para a próxima tela
+        );
       },
       child: Container(
         width: 80,
