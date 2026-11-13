@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const corPrincipal = Color.fromARGB(255, 9, 180, 32);
+
 void main() {
   runApp(const MyApp()); // Inicia o aplicativo
 }
@@ -10,20 +12,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-
+      title: 'Frases do dia',
       // Tema do aplicativo (define cores principais)
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 9, 180, 32),
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: corPrincipal),
       ),
-
       // Tela inicial
       home: const MyHomePage(title: 'Frases do dia'),
     );
   }
 }
+
+/// Frases exibidas em sequência a cada toque no botão.
+const frases = [
+  'A persistência é o caminho do êxito.',
+  'O sucesso é a soma de pequenos esforços repetidos dia após dia.',
+  'Acredite em si mesmo e todo o resto virá naturalmente.',
+  'A única maneira de fazer um excelente trabalho é amar o que você faz.',
+  'O futuro pertence àqueles que acreditam na beleza de seus sonhos.',
+];
+
+const textoInicial = 'Clique abaixo para gerar uma frase!';
 
 // Tela principal
 class MyHomePage extends StatefulWidget {
@@ -37,121 +46,69 @@ class MyHomePage extends StatefulWidget {
 
 // Estado da tela (onde ficam as variáveis)
 class _MyHomePageState extends State<MyHomePage> {
+  // Posição da frase atual na lista; -1 enquanto nenhuma foi mostrada
+  int _indice = -1;
 
-  // Contador usado para trocar as frases
-  int _counter = 0;
+  String get _textoAtual => _indice < 0 ? textoInicial : frases[_indice];
 
-  // Lista de frases
-  List<String> frases = [
-    "A persistência é o caminho do êxito.",
-    "O sucesso é a soma de pequenos esforços repetidos dia após dia.",
-    "Acredite em si mesmo e todo o resto virá naturalmente.",
-    "A única maneira de fazer um excelente trabalho é amar o que você faz.",
-    "O futuro pertence àqueles que acreditam na beleza de seus sonhos."
-  ];
-
-  // Frase que será mostrada
-  String fraseRandomica = "";
-
-  // Frase inicial
-  String frasePadrao = "Clique abaixo para gerar uma frase!";
-
-  // Função chamada quando clicar no botão
-  void _incrementCounter() {
+  // Avança para a próxima frase e volta ao início depois da última
+  void _proximaFrase() {
     setState(() {
-
-      // Incrementa o contador
-      _counter++;
-
-      // Escolhe uma frase da lista
-      fraseRandomica = frases[_counter % frases.length];
-
-      // Atualiza o texto na tela
-      frasePadrao = fraseRandomica;
-
+      _indice = (_indice + 1) % frases.length;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       // Barra superior verde
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-
-      // Conteúdo da tela
       body: Center(
         child: Column(
-
-          // Centraliza os elementos verticalmente
+          // Centraliza os elementos na vertical e na horizontal
           mainAxisAlignment: MainAxisAlignment.center,
-
-          // Centraliza horizontalmente
           crossAxisAlignment: CrossAxisAlignment.center,
-
           children: <Widget>[
-
-            // Logo do aplicativo
+            // Logo do aplicativo (pasta assets)
             Container(
               width: 200,
-              margin: EdgeInsets.only(top: 20),
-
-              // Imagem da pasta assets
+              margin: const EdgeInsets.only(top: 20),
               child: Image.asset('assets/images/logo.png'),
             ),
 
-            // Espaço entre logo e texto
-            SizedBox(height: 60),
+            const SizedBox(height: 60),
 
-            // Texto com a frase
-            Text(
-              frasePadrao,
-
-              // Centraliza o texto
-              textAlign: TextAlign.center,
-
-              // Estilo do texto
-              style: TextStyle(
-                fontSize: 18,
-                fontStyle: FontStyle.italic,
+            // Frase atual
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(
+                _textoAtual,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
 
-            // Espaço entre texto e botão
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
 
-            // BOTÃO "NOVA FRASE"
+            // Botão "Nova Frase"
             ElevatedButton(
-
-              // Função executada ao clicar
-              onPressed: _incrementCounter,
-
-              // Estilo do botão
+              onPressed: _proximaFrase,
               style: ElevatedButton.styleFrom(
-
-                // Cor verde do botão
-                backgroundColor: const Color.fromARGB(255, 9, 180, 32),
-
-                // Espaçamento interno (tamanho do botão)
-                padding: EdgeInsets.symmetric(
-                  horizontal: 40, // largura
-                  vertical: 12,   // altura
-                ),
-
-                // Deixa o botão arredondado
+                backgroundColor: corPrincipal,
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                // Botão arredondado
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-
-              // Texto do botão
-              child: Text(
-                "Nova Frase",
-
+              child: const Text(
+                'Nova Frase',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,
@@ -159,7 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-
           ],
         ),
       ),

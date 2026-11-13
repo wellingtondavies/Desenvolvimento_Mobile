@@ -1,16 +1,23 @@
-# aula_tres
+# Aula 3 — Pedra, Papel e Tesoura
 
-A new Flutter project.
+Jogo de pedra, papel e tesoura com duas telas: o jogador escolhe a jogada e o app sorteia a dele na
+tela de resultado, que mostra as duas escolhas e quem venceu. Pratica navegação com
+`Navigator.push`/`pop` e passagem de dados entre telas.
 
-## Getting Started
+| Arquivo            | Conteúdo                                                                 |
+| ------------------ | ------------------------------------------------------------------------ |
+| `lib/jogo.dart`    | Regra do jogo: `Jogada`, `Resultado` e `jogar()`, sem nenhum widget       |
+| `lib/main.dart`    | Tela inicial com as três opções                                           |
+| `lib/tela_dois.dart` | Sorteia a jogada do app e mostra o resultado                            |
+| `lib/widgets.dart` | `ImagemCircular` e a barra do app, usados nas duas telas                  |
+| `test/`            | Testes da regra (todas as combinações) e das telas                        |
 
-This project is a starting point for a Flutter application.
+## Como executar
 
-A few resources to get you started if this is your first Flutter project:
+Requisito: Flutter SDK (Dart 3.7 ou mais recente).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+flutter run
+flutter test
+```

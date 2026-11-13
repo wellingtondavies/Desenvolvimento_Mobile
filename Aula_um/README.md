@@ -1,16 +1,15 @@
-# aula_um
+# Aula 1 — Primeiro app Flutter
 
-A new Flutter project.
+Projeto inicial gerado pelo `flutter create`: um contador que soma 1 a cada toque no botão
+flutuante. Serviu para instalar o SDK, rodar no emulador e entender `StatelessWidget`,
+`StatefulWidget` e `setState`.
 
-## Getting Started
+## Como executar
 
-This project is a starting point for a Flutter application.
+Requisito: Flutter SDK (Dart 3.7 ou mais recente).
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+flutter run
+flutter test
+```

@@ -1,16 +1,17 @@
-# aula_dois
+# Aula 2 — Frases do dia
 
-A new Flutter project.
+App com logo, uma frase motivacional e o botão **Nova Frase**, que avança pelas frases em ordem e
+volta ao início depois da última. Pratica `setState`, imagens locais (`assets/images/logo.png`) e
+estilização de botões.
 
-## Getting Started
+O teste em `test/widget_test.dart` toca no botão e confere cada frase.
 
-This project is a starting point for a Flutter application.
+## Como executar
 
-A few resources to get you started if this is your first Flutter project:
+Requisito: Flutter SDK (Dart 3.7 ou mais recente).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+flutter run
+flutter test
+```

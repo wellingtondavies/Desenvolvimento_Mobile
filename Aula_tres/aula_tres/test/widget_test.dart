@@ -1,30 +1,38 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:aula_tres/jogo.dart';
+import 'package:aula_tres/main.dart';
+import 'package:aula_tres/tela_dois.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:aula_tres/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('tela inicial mostra as três opções', (tester) async {
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('Escolha do APP'), findsOneWidget);
+    for (final jogada in Jogada.values) {
+      expect(find.byKey(Key('opcao-${jogada.name}')), findsOneWidget);
+    }
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('escolher uma opção abre a tela de resultado', (tester) async {
+    await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('opcao-pedra')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Sua Escolha'), findsOneWidget);
+    expect(find.text('Jogar novamente'), findsOneWidget);
+  });
+
+  testWidgets('resultado mostra vitória quando pedra enfrenta tesoura', (tester) async {
+    await tester.pumpWidget(const MaterialApp(
+      home: TelaDois(
+        title: 'Teste',
+        escolhaJogador: Jogada.pedra,
+        escolhaApp: Jogada.tesoura,
+      ),
+    ));
+
+    expect(find.text('Você venceu!'), findsOneWidget);
   });
 }
